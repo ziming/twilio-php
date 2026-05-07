@@ -28,10 +28,10 @@ use Twilio\ApiV1Version;
  * @property string $message
  * @property string $uri
  */
-class DeleteProfile308ResponseInstance extends InstanceResource
+class FetchProfile301ResponseInstance extends InstanceResource
 {
     /**
-     * Initialize the DeleteProfile308ResponseInstance
+     * Initialize the FetchProfile301ResponseInstance
      *
      * @param Version $version Version that contains the resource
      * @param mixed[] $payload The response payload
@@ -80,6 +80,6 @@ class DeleteProfile308ResponseInstance extends InstanceResource
      */
     public function __toString(): string
     {
-        return '[Twilio.Memory.V1.DeleteProfile308ResponseInstance]';
+        return '[Twilio.Memory.V1.FetchProfile301ResponseInstance]';
     }
 }

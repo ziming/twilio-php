@@ -22,6 +22,7 @@ abstract class StoreOptions
 {
 
 
+
     /**
      * @param int $pageSize The maximum number of items to return per page, maximum of 100.
      * @param string $pageToken The token for the page of results to retrieve.
@@ -59,6 +60,7 @@ abstract class StoreOptions
     }
 
 }
+
 
 
 

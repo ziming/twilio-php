@@ -18,6 +18,7 @@ namespace Twilio\Rest\Conversations;
 use Twilio\Domain;
 use Twilio\Exceptions\TwilioException;
 use Twilio\InstanceContext;
+use Twilio\Rest\Conversations\V2\ActionList;
 use Twilio\Rest\Conversations\V2\CommunicationList;
 use Twilio\Rest\Conversations\V2\ConfigurationList;
 use Twilio\Rest\Conversations\V2\ConversationList;
@@ -26,6 +27,7 @@ use Twilio\Rest\Conversations\V2\ParticipantList;
 use Twilio\Version;
 
 /**
+ * @property ActionList $actions
  * @property CommunicationList $communications
  * @property ConfigurationList $configurations
  * @property ConversationList $conversations
@@ -33,12 +35,14 @@ use Twilio\Version;
  * @property ParticipantList $participants
  * @method \Twilio\Rest\Conversations\V2\ConfigurationContext configurations(string $sid)
  * @method \Twilio\Rest\Conversations\V2\ConversationContext conversations(string $sid)
+ * @method \Twilio\Rest\Conversations\V2\ActionContext actions(string $conversationId, string $actionId)
  * @method \Twilio\Rest\Conversations\V2\ParticipantContext participants(string $conversationSid, string $sid)
  * @method \Twilio\Rest\Conversations\V2\CommunicationContext communications(string $conversationSid, string $sid)
  * @method \Twilio\Rest\Conversations\V2\OperationContext operations(string $sid)
  */
 class V2 extends Version
 {
+    protected $_actions;
     protected $_communications;
     protected $_configurations;
     protected $_conversations;
@@ -54,6 +58,14 @@ class V2 extends Version
     {
         parent::__construct($domain);
         $this->version = 'v2';
+    }
+
+    protected function getActions(): ActionList
+    {
+        if (!$this->_actions) {
+            $this->_actions = new ActionList($this);
+        }
+        return $this->_actions;
     }
 
     protected function getCommunications(): CommunicationList

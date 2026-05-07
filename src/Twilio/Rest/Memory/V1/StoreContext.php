@@ -53,6 +53,62 @@ class StoreContext extends InstanceContext
     }
 
     /**
+     * Helper function for Delete
+     *
+     
+     * @return Response Deleted Response
+     * @throws TwilioException When an HTTP error occurs.
+     */
+    private function _delete(): Response
+    {
+        
+        $headers = Values::of(['Content-Type' => 'application/x-www-form-urlencoded', 'Accept' => 'application/json' ]);
+        return $this->version->handleRequest('DELETE', $this->uri, [], [], $headers, "delete");
+    }
+
+    /**
+     * Delete the DeleteStore202ResponseInstance
+     *
+     
+     * @return DeleteStore202ResponseInstance Deleted DeleteStore202ResponseInstance
+     * @throws TwilioException When an HTTP error occurs.
+     */
+    public function delete(): DeleteStore202ResponseInstance
+    {
+        $response = $this->_delete();
+        
+        return new DeleteStore202ResponseInstance(
+            $this->version,
+            $response->getContent(),
+            $this->solution['storeId']
+        );
+    }
+
+    /**
+     * Delete the DeleteStore202ResponseInstance with Metadata
+     *
+     
+     * @return ResourceMetadata The Deleted Resource with Metadata
+     * @throws TwilioException When an HTTP error occurs.
+     */
+    public function deleteWithMetadata(): ResourceMetadata
+    {
+        $response = $this->_delete();
+        
+        $resource = new DeleteStore202ResponseInstance(
+                        $this->version,
+                        $response->getContent(),
+                        $this->solution['storeId']
+                    );
+        return new ResourceMetadata(
+            $resource,
+            $response->getStatusCode(),
+            $response->getHeaders()
+        );
+    }
+
+
+    /**
      * Helper function for Fetch
      *
      

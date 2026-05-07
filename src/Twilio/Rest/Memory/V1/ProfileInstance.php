@@ -23,16 +23,18 @@ use Twilio\Options;
 use Twilio\Values;
 use Twilio\Version;
 use Twilio\ApiV1Version;
+use Twilio\Deserialize;
 
 
 /**
- * @property string[] $profiles
- * @property string $meta
+ * @property string $id
+ * @property \DateTime $createdAt
+ * @property array<string,array<string,mixed>> $traits
  */
-class ListProfiles200ResponseInstance extends InstanceResource
+class ProfileInstance extends InstanceResource
 {
     /**
-     * Initialize the ListProfiles200ResponseInstance
+     * Initialize the ProfileInstance
      *
      * @param Version $version Version that contains the resource
      * @param mixed[] $payload The response payload
@@ -46,8 +48,9 @@ class ListProfiles200ResponseInstance extends InstanceResource
 
         // Marshaled Properties
         $this->properties = [
-            'profiles' => Values::array_get($payload, 'profiles'),
-            'meta' => Values::array_get($payload, 'meta'),
+            'id' => Values::array_get($payload, 'id'),
+            'createdAt' => Deserialize::dateTime(Values::array_get($payload, 'createdAt')),
+            'traits' => Values::array_get($payload, 'traits'),
         ];
 
         $this->solution = ['storeId' => $storeId ?: ($this->properties['storeId'] ?? null), 'profileId' => $profileId ?: ($this->properties['profileId'] ?? null), ];
@@ -142,6 +145,6 @@ class ListProfiles200ResponseInstance extends InstanceResource
         foreach ($this->solution as $key => $value) {
             $context[] = "$key=$value";
         }
-        return '[Twilio.Memory.V1.ListProfiles200ResponseInstance ' . \implode(' ', $context) . ']';
+        return '[Twilio.Memory.V1.ProfileInstance ' . \implode(' ', $context) . ']';
     }
 }

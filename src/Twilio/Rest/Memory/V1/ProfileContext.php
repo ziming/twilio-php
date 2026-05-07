@@ -18,6 +18,7 @@
 namespace Twilio\Rest\Memory\V1;
 
 use Twilio\Exceptions\TwilioException;
+use Twilio\Options;
 use Twilio\Values;
 use Twilio\Version;
 use Twilio\ApiV1Version;
@@ -109,6 +110,77 @@ class ProfileContext extends InstanceContext
                         $this->solution['storeId'],
                         $this->solution['profileId']
                     );
+        return new ResourceMetadata(
+            $resource,
+            $response->getStatusCode(),
+            $response->getHeaders()
+        );
+    }
+
+
+    /**
+     * Helper function for Fetch
+     *
+     
+     
+     * @param array|Options $options Optional Arguments
+     * @return Response Fetched Response
+     * @throws TwilioException When an HTTP error occurs.
+     */
+    private function _fetch(array $options = []): Response
+    {
+        
+        $options = new Values($options);
+
+        $params = Values::of([
+            'traitGroups' =>
+                $options['traitGroups'],
+        ]);
+
+        $headers = Values::of(['Content-Type' => 'application/x-www-form-urlencoded', 'Accept' => 'application/json' ]);
+        return $this->version->handleRequest('GET', $this->uri, $params, [], $headers, "fetch");
+    }
+
+    /**
+     * Fetch the ProfileInstance
+     *
+     
+     
+     * @param array|Options $options Optional Arguments
+     * @return ProfileInstance Fetched ProfileInstance
+     * @throws TwilioException When an HTTP error occurs.
+     */
+    public function fetch(array $options = []): ProfileInstance
+    {
+        $response = $this->_fetch($options);
+        return new ProfileInstance(
+            $this->version,
+            $response->getContent(),
+            $this->solution['storeId'],
+            $this->solution['profileId']
+        );
+        
+    }
+
+    /**
+     * Fetch the ProfileInstance with Metadata
+     *
+     
+     
+     * @param array|Options $options Optional Arguments
+     * @return ResourceMetadata The Fetched Resource with Metadata
+     * @throws TwilioException When an HTTP error occurs.
+     */
+    public function fetchWithMetadata(array $options = []): ResourceMetadata
+    {
+        $response = $this->_fetch($options);
+        $resource = new ProfileInstance(
+                        $this->version,
+                        $response->getContent(),
+                        $this->solution['storeId'],
+                        $this->solution['profileId']
+                    );
+        
         return new ResourceMetadata(
             $resource,
             $response->getStatusCode(),

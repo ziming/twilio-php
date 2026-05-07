@@ -79,6 +79,18 @@ class StoreInstance extends InstanceResource
     }
 
     /**
+     * Delete the DeleteStore202ResponseInstance
+     *
+     * @return DeleteStore202ResponseInstance Deleted DeleteStore202ResponseInstance
+     * @throws TwilioException When an HTTP error occurs.
+     */
+    public function delete(): DeleteStore202ResponseInstance
+    {
+
+        return $this->proxy()->delete();
+    }
+
+    /**
      * Fetch the StoreInstance
      *
      * @return StoreInstance Fetched StoreInstance

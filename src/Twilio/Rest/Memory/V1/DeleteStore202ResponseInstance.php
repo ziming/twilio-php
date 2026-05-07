@@ -26,46 +26,44 @@ use Twilio\ApiV1Version;
 
 
 /**
- * @property string[] $profiles
- * @property string $meta
+ * @property string $message
+ * @property string $statusUrl
  */
-class ListProfiles200ResponseInstance extends InstanceResource
+class DeleteStore202ResponseInstance extends InstanceResource
 {
     /**
-     * Initialize the ListProfiles200ResponseInstance
+     * Initialize the DeleteStore202ResponseInstance
      *
      * @param Version $version Version that contains the resource
      * @param mixed[] $payload The response payload
      * @param string $storeId A unique Memory Store ID using Twilio Type ID (TTID) format
-     * @param string $profileId The unique identifier for the profile using Twilio Type ID (TTID) format.
      */
-    public function __construct(Version $version, array $payload, ?string $storeId = null, ?string $profileId = null)
+    public function __construct(Version $version, array $payload, ?string $storeId = null)
     {
         $apiV1Version = new ApiV1Version($version->getDomain(), $version->version);
         parent::__construct($apiV1Version);
 
         // Marshaled Properties
         $this->properties = [
-            'profiles' => Values::array_get($payload, 'profiles'),
-            'meta' => Values::array_get($payload, 'meta'),
+            'message' => Values::array_get($payload, 'message'),
+            'statusUrl' => Values::array_get($payload, 'statusUrl'),
         ];
 
-        $this->solution = ['storeId' => $storeId ?: ($this->properties['storeId'] ?? null), 'profileId' => $profileId ?: ($this->properties['profileId'] ?? null), ];
+        $this->solution = ['storeId' => $storeId ?: ($this->properties['storeId'] ?? null), ];
     }
 
     /**
      * Generate an instance context for the instance, the context is capable of
      * performing various actions.  All instance actions are proxied to the context
      *
-     * @return ProfileContext Context for this ProfileInstance
+     * @return StoreContext Context for this StoreInstance
      */
-    protected function proxy(): ProfileContext
+    protected function proxy(): StoreContext
     {
         if (!$this->context) {
-            $this->context = new ProfileContext(
+            $this->context = new StoreContext(
                 $this->version,
-                $this->solution['storeId'],
-                $this->solution['profileId']
+                $this->solution['storeId']
             );
         }
 
@@ -73,41 +71,40 @@ class ListProfiles200ResponseInstance extends InstanceResource
     }
 
     /**
-     * Delete the DeleteProfile202ResponseInstance
+     * Delete the DeleteStore202ResponseInstance
      *
-     * @return DeleteProfile202ResponseInstance Deleted DeleteProfile202ResponseInstance
+     * @return DeleteStore202ResponseInstance Deleted DeleteStore202ResponseInstance
      * @throws TwilioException When an HTTP error occurs.
      */
-    public function delete(): DeleteProfile202ResponseInstance
+    public function delete(): DeleteStore202ResponseInstance
     {
 
         return $this->proxy()->delete();
     }
 
     /**
-     * Fetch the ProfileInstance
+     * Fetch the StoreInstance
      *
-     * @param array|Options $options Optional Arguments
-     * @return ProfileInstance Fetched ProfileInstance
+     * @return StoreInstance Fetched StoreInstance
      * @throws TwilioException When an HTTP error occurs.
      */
-    public function fetch(array $options = []): ProfileInstance
+    public function fetch(): StoreInstance
     {
 
-        return $this->proxy()->fetch($options);
+        return $this->proxy()->fetch();
     }
 
     /**
-     * Patch the PatchProfileTraits202ResponseInstance
+     * Patch the PatchStore202ResponseInstance
      *
-     * @param ProfilePatch $profilePatch
-     * @return PatchProfileTraits202ResponseInstance Patchd PatchProfileTraits202ResponseInstance
+     * @param array|Options $options Optional Arguments
+     * @return PatchStore202ResponseInstance Patchd PatchStore202ResponseInstance
      * @throws TwilioException When an HTTP error occurs.
      */
-    public function patch(ProfilePatch $profilePatch): PatchProfileTraits202ResponseInstance
+    public function patch(array $options = []): PatchStore202ResponseInstance
     {
 
-        return $this->proxy()->patch($profilePatch);
+        return $this->proxy()->patch($options);
     }
 
     /**
@@ -142,6 +139,6 @@ class ListProfiles200ResponseInstance extends InstanceResource
         foreach ($this->solution as $key => $value) {
             $context[] = "$key=$value";
         }
-        return '[Twilio.Memory.V1.ListProfiles200ResponseInstance ' . \implode(' ', $context) . ']';
+        return '[Twilio.Memory.V1.DeleteStore202ResponseInstance ' . \implode(' ', $context) . ']';
     }
 }

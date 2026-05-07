@@ -23,6 +23,21 @@ abstract class ProfileOptions
 
 
     /**
+     * @param string $traitGroups Comma separated list of trait group names to include.
+     * @return FetchProfileOptions Options builder
+     */
+    public static function fetch(
+        
+        string $traitGroups = Values::NONE
+
+    ): FetchProfileOptions
+    {
+        return new FetchProfileOptions(
+            $traitGroups
+        );
+    }
+
+    /**
      * @param int $pageSize The maximum number of items to return per page, maximum of 1000.
      * @param string $pageToken The token for the page of results to retrieve.
      * @param string $orderBy Either 'ASC' or 'DESC' to sort results ascending or descending respectively.
@@ -47,6 +62,43 @@ abstract class ProfileOptions
 }
 
 
+
+class FetchProfileOptions extends Options
+    {
+    /**
+     * @param string $traitGroups Comma separated list of trait group names to include.
+     */
+    public function __construct(
+        
+        string $traitGroups = Values::NONE
+
+    ) {
+        $this->options['traitGroups'] = $traitGroups;
+    }
+
+    /**
+     * Comma separated list of trait group names to include.
+     *
+     * @param string $traitGroups Comma separated list of trait group names to include.
+     * @return $this Fluent Builder
+     */
+    public function setTraitGroups(string $traitGroups): self
+    {
+        $this->options['traitGroups'] = $traitGroups;
+        return $this;
+    }
+
+    /**
+     * Provide a friendly representation
+     *
+     * @return string Machine friendly representation
+     */
+    public function __toString(): string
+    {
+        $options = \http_build_query(Values::of($this->options), '', ' ');
+        return '[Twilio.Memory.V1.FetchProfileOptions ' . $options . ']';
+    }
+}
 
 class ReadProfileOptions extends Options
     {

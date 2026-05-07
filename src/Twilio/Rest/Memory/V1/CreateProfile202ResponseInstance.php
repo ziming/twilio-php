@@ -19,6 +19,7 @@ namespace Twilio\Rest\Memory\V1;
 
 use Twilio\Exceptions\TwilioException;
 use Twilio\InstanceResource;
+use Twilio\Options;
 use Twilio\Values;
 use Twilio\Version;
 use Twilio\ApiV1Version;
@@ -81,6 +82,19 @@ class CreateProfile202ResponseInstance extends InstanceResource
     {
 
         return $this->proxy()->delete();
+    }
+
+    /**
+     * Fetch the ProfileInstance
+     *
+     * @param array|Options $options Optional Arguments
+     * @return ProfileInstance Fetched ProfileInstance
+     * @throws TwilioException When an HTTP error occurs.
+     */
+    public function fetch(array $options = []): ProfileInstance
+    {
+
+        return $this->proxy()->fetch($options);
     }
 
     /**
